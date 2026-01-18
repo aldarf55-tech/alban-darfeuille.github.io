@@ -1,0 +1,166 @@
+:root {
+    --bg-dark: #0a0a0c;
+    --card-bg: #16161a;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #e0e0e0;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* Style de la photo de profil */
+.profile-header {
+   	padding: 20px;
+    margin-bottom: 40px;
+}
+/* On utilise flex pour mettre l'image et le texte côte à côte */
+.header-container {
+    display: flex;
+    align-items: center; /* Aligne verticalement au centre */
+    justify-content: center; /* Centre le bloc entier dans la page */
+    gap: 30px; /* Espace entre la photo et le texte */
+    max-width: 800px;
+    margin: 0 auto;
+}
+.profile-img {
+    width: 150px; /* Taille légèrement augmentée */
+    height: 150px;
+    border-radius: 20px; /* Carré arrondi pour un look plus moderne */
+    border: 3px solid #9700ff;
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+.profile-text {
+    text-align: left; /* Aligne le texte à gauche */
+}
+
+.profile-text h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #9700ff;
+    margin: 5px 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- RESPONSIVE (Mobile) --- */
+@media (max-width: 600px) {
+    .header-container {
+        flex-direction: column; /* On repasse l'un au dessus de l'autre sur petit mobile */
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .profile-text {
+        text-align: center;
+    }
+    
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Grille réactive : 1 colonne mobile, 2 ou 3 sur PC */
+.cv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Design des cartes avec effet de lueur */
+.card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #2d2d35;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Effet au passage de la souris (Hover) */
+.card:hover {
+    transform: scale(1.05); /* Grossissement */
+    background: #1f1f25;
+    /* La lueur utilise une variable définie dans le HTML ou JS */
+    box-shadow: 0 0 25px var(--glow-color, #00d4ff);
+    border-color: var(--glow-color, #00d4ff);
+}
+
+.icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--glow-color, #fff);
+}
+
+/* Cache le contenu détaillé par défaut */
+.full-content {
+    display: none;
+    margin-top: 20px;
+    text-align: left;
+}
+
+/* --- CLASSE ACTIVE (Plein écran) --- */
+.card.active {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 100;
+    border-radius: 0;
+    padding: 40px;
+    justify-content: flex-start;
+    overflow-y: auto;
+    background: var(--bg-dark);
+}
+
+.card.active .full-content {
+    display: block; /* Affiche le contenu seulement quand actif */
+    animation: fadeIn 0.5s ease-in;
+}
+
+.card.active .icon { font-size: 4rem; }
+
+#close-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 101;
+    display: none;
+    background: white;
+    color: black;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
